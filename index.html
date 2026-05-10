@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>시즌3 VR 가상체험</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: white;
+      font-family: Arial, "Noto Sans KR", sans-serif;
+      text-align: center;
+    }
+
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin: 18px 0 10px;
+    }
+
+    .notice {
+      font-size: 16px;
+      color: #ffd966;
+      margin-bottom: 14px;
+    }
+
+    .video-box {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #111;
+    }
+
+    .video-box iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    #choiceBox {
+      display: none;
+      margin-top: 24px;
+      padding: 20px;
+      border: 2px solid #ffd966;
+      border-radius: 14px;
+      background: #111;
+    }
+
+    #choiceBox h2 {
+      font-size: 22px;
+      margin-bottom: 18px;
+      color: #ffd966;
+    }
+
+    .btn {
+      display: inline-block;
+      width: 260px;
+      margin: 10px;
+      padding: 18px 12px;
+      font-size: 22px;
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+      border-radius: 14px;
+    }
+
+    .giveup {
+      background: #555;
+    }
+
+    .challenge {
+      background: #1f8f3a;
+    }
+
+    .small {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #ccc;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <h1>시즌3 VR 가상체험</h1>
+
+    <div class="notice">
+      영상 마지막에 직접 선택할 수 있는 체험 버튼이 나타납니다.
+    </div>
+
+    <div class="video-box">
+      <div id="player"></div>
+    </div>
+
+    <div id="choiceBox">
+      <h2>당신이라면 어떻게 하시겠습니까?</h2>
+
+      <a class="btn giveup" href="giveup.html">
+        여행 포기
+      </a>
+
+      <a class="btn challenge" href="challenge.html">
+        자유여행 강행
+      </a>
+
+      <div class="small">
+        선택한 버튼에 따라 다른 VR 가상체험 영상이 실행됩니다.
+      </div>
+    </div>
+  </div>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <script>
+    let player;
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        videoId: 'PTtfhhq2C2M',
+        playerVars: {
+          rel: 0,
+          modestbranding: 1,
+          playsinline: 1
+        },
+        events: {
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    function onPlayerStateChange(event) {
+      if (event.data === YT.PlayerState.ENDED) {
+        document.getElementById('choiceBox').style.display = 'block';
+        document.getElementById('choiceBox').scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    setTimeout(function () {
+      document.getElementById('choiceBox').style.display = 'block';
+    }, 30000);
+  </script>
+</body>
+</html>
